@@ -82,8 +82,15 @@ template< class T > bool XMLTest( const char* testString, T expected, T found, b
 
 	if ( !echo )
 		printf (" %s\n", testString);
-	else
-		printf (" %s [%d][%d]\n", testString, static_cast<int>(expected), static_cast<int>(found) );
+	else {
+		char expectedAsString[64];
+		XMLUtil::ToStr(expected, expectedAsString, sizeof(expectedAsString));
+
+		char foundAsString[64];
+		XMLUtil::ToStr(found, foundAsString, sizeof(foundAsString));
+
+		printf (" %s [%s][%s]\n", testString, expectedAsString, foundAsString );
+	}
 
 	if ( pass )
 		++gPass;
@@ -1782,6 +1789,7 @@ int main( int argc, const char ** argv )
 		XMLTest( "Insertion with removal parse round 4", false, doc.Error() );
 		subtree = doc.RootElement()->FirstChildElement("one")->FirstChildElement("subtree");
 		two = doc.RootElement()->FirstChildElement("two");
+		XMLTest("<two> is the last child at root level", true, two == doc.RootElement()->LastChildElement());
 		doc.RootElement()->InsertEndChild(subtree);
 		XMLPrinter printer4(0, true);
 		acceptResult = doc.Accept(&printer4);
