@@ -36,14 +36,14 @@ set(GENERIC_LIB_SOVERSION "6")
 # To build the tests, use cmake . -DBUILD_TESTS:BOOL=ON
 # To disable the building of the tests, use cmake . -DBUILD_TESTS:BOOL=OFF
 
-option(BUILD_SHARED_LIBS "build as shared library" ON)
+option(BUILD_SHARED_LIBS "build as shared library" OFF)
 option(BUILD_TESTS "build xmltest (deprecated: Use BUILD_TESTING)" ON)
 
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # to distinguish between debug and release lib
-set(CMAKE_DEBUG_POSTFIX "d")
+set(CMAKE_DEBUG_POSTFIX)
 
 add_library(tinyxml2 tinyxml2.cpp tinyxml2.h)
 
